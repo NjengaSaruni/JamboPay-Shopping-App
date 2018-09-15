@@ -7,6 +7,7 @@ import { ListPage } from '../pages/list/list';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {LoginPage} from "../pages/login/login";
 
 
 @Component({
@@ -25,13 +26,14 @@ export class MyApp {
     public statusBar: StatusBar,
     public splashScreen: SplashScreen
   ) {
-    this.initializeApp();
-
     // set our app's pages
     this.pages = [
       { title: 'Jambo Shopper', component: HelloIonicPage },
-      { title: 'My Shopping List', component: ListPage }
+      { title: 'My Shopping List', component: ListPage },
+      { title: 'Login Page', component: LoginPage}
     ];
+    this.initializeApp();
+
   }
 
   initializeApp() {
@@ -48,5 +50,9 @@ export class MyApp {
     this.menu.close();
     // navigate to the new page if it is not the current page
     this.nav.setRoot(page.component);
+  }
+
+  ionViewDidLoad(){
+    this.openPage(this.pages[2]);
   }
 }
