@@ -7,6 +7,9 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>Login</ion-title>
   </ion-navbar>
 
@@ -18,19 +21,30 @@
     <form [formGroup]="rForm" (ngSubmit)="login(rForm.value)">
       <div class="form-container">
         <div class="row columns">
-          <h1>Login to Jambo Shopper</h1>
-          <label>Username
-            <input type="text" formControlName="username">
-          </label>
+          <ion-row class="center">
+            <ion-col col-12 class="error" *ngIf="logginError">
+              <p >Invalid login credentials. Please try again.</p>
+            </ion-col>
+            <ion-col col-12>
+              <h4>Login to Jambo Shopper</h4>
+            </ion-col>
+            <ion-col col-12>
+              <label>Username
+                <input type="text" formControlName="username">
+              </label>
+            </ion-col>
 
-          <label>Password
-            <input type="password" formControlName="password">
-          </label>
+            <ion-col col-12>
+              <label>Password
+                <input type="password" formControlName="password">
+              </label>
 
-          <label for="validate">Minimum of 3 Characters</label>
-          <input type="checkbox" name="validate" id="validate" formControlName="validate" value="1"> On
+            </ion-col>
 
-          <input type="submit" class="button expanded" value="Submit Form" [disabled]="!rForm.valid">
+            <ion-col col-12>
+              <input type="submit" class="button expanded" value="Log In" [disabled]="!rForm.valid">
+            </ion-col>
+          </ion-row>
         </div>
       </div>
     </form>

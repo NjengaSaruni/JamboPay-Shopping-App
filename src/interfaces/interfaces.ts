@@ -1,3 +1,6 @@
+export interface Token {
+  token: string;
+}
 export interface ShoppingList {
   id: string;
   items?: (ItemsEntity)[] | null;

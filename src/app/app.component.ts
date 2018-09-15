@@ -1,12 +1,12 @@
-import { Component, ViewChild } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 
-import { Platform, MenuController, Nav } from 'ionic-angular';
+import {MenuController, Nav, Platform} from 'ionic-angular';
 
-import { HelloIonicPage } from '../pages/hello-ionic/hello-ionic';
-import { ListPage } from '../pages/list/list';
+import {HelloIonicPage} from '../pages/hello-ionic/hello-ionic';
+import {ListPage} from '../pages/list/list';
 
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
+import {StatusBar} from '@ionic-native/status-bar';
+import {SplashScreen} from '@ionic-native/splash-screen';
 import {LoginPage} from "../pages/login/login";
 
 
@@ -50,9 +50,5 @@ export class MyApp {
     this.menu.close();
     // navigate to the new page if it is not the current page
     this.nav.setRoot(page.component);
-  }
-
-  ionViewDidLoad(){
-    this.openPage(this.pages[2]);
   }
 }

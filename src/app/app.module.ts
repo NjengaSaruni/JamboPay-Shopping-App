@@ -13,7 +13,10 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {ShoppingListService} from "../services/shopping-list.service";
 import {HttpClientModule} from "@angular/common/http";
-import {LoginPage} from "../pages/login/login";
+import {LoginPageModule} from "../pages/login/login.module";
+import { MatProgressBarModule } from "@angular/material"
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+
 
 
 @NgModule({
@@ -21,12 +24,12 @@ import {LoginPage} from "../pages/login/login";
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage,
-    LoginPage
+    ListPage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
+    LoginPageModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],
@@ -34,8 +37,7 @@ import {LoginPage} from "../pages/login/login";
     MyApp,
     HelloIonicPage,
     ItemDetailsPage,
-    ListPage,
-    LoginPage
+    ListPage
   ],
   providers: [
     // {provide: LocationStrategy, useClass: PathLocationStrategy},

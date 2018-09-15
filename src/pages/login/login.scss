@@ -5,6 +5,13 @@ page-login {
     padding:2em;
     margin: 2em auto;
     background:#fff;
+    max-width: 600px;
+    border: 2px solid #DADADA;
+
+    .error {
+      color: red;
+      font-size: 15px;
+    }
   }
 
   .alert {
