@@ -1,5 +1,5 @@
 import {Observable} from "rxjs";
-import {ShoppingList, Token} from "../interfaces/interfaces";
+import {ItemsEntity, ShoppingList, Token} from "../interfaces/interfaces";
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import { HttpHeaders } from '@angular/common/http';
@@ -17,6 +17,24 @@ export class ShoppingListService {
     const url = `${this.baseUrl}shopping-lists/`;
     return this.http.get<ShoppingList[]>(url, this.getHeaders());
   }
+
+  createShoppingList(name: string, budget: number): Observable<ShoppingList> {
+    const url = `${this.baseUrl}shopping-lists/`;
+    return this.http.post<ShoppingList>(
+      url,
+      {
+        name: name,
+        budget: budget
+      },
+      this.getHeaders());
+  }
+
+  patchItem(item: ItemsEntity): Observable<ItemsEntity>{
+    const url = `${this.baseUrl}shopping-lists/items/${item.id}/`;
+
+    return this.http.patch<ItemsEntity>(url, item,this.getHeaders());
+  }
+
 
   authenticate(username: string, password: string): Observable<Token>{
     const url = `${this.baseUrl}api-token-auth/`;

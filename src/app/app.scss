@@ -21,3 +21,17 @@ body {
   background:#e8e8e8;
   font-family: 'Muli';
 }
+
+
+.contain {
+  width: 80%;
+  max-width: 1200px;
+  justify-content: center;
+}
+
+
+.primary-button {
+  border-radius: 16px !important;
+  background: #2ec95c !important;
+  height: 40px;
+}

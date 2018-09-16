@@ -14,8 +14,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import {ShoppingListService} from "../services/shopping-list.service";
 import {HttpClientModule} from "@angular/common/http";
 import {LoginPageModule} from "../pages/login/login.module";
-import { MatProgressBarModule } from "@angular/material"
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import {ListFormPageModule} from "../pages/list-form/list-form.module";
 
 
 
@@ -30,6 +29,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
     BrowserModule,
     HttpClientModule,
     LoginPageModule,
+    ListFormPageModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],

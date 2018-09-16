@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ShoppingListService} from "../../services/shopping-list.service";
 import {ListPage} from "../list/list";
+import {ShoppingListService} from "../../services/shopping-list.service";
 
 /**
- * Generated class for the LoginPage page.
+ * Generated class for the ListFormPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -13,49 +13,54 @@ import {ListPage} from "../list/list";
 
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
+  selector: 'page-list-form',
+  templateUrl: 'list-form.html',
 })
-export class LoginPage {
+export class ListFormPage {
   rForm: FormGroup;
   post:any;                     // A property for our submitted form
-  username:string = '';
-  password:string = '';
-  logginError: boolean;
+  name:string = '';
+  budget:number = 0;
+  formError: boolean;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public loadingCtrl: LoadingController,
-              private fb: FormBuilder, private shoppingListService: ShoppingListService) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              private fb: FormBuilder, private loadingCtrl: LoadingController,
+              private shoppingListService: ShoppingListService) {
     this.rForm = fb.group({
-      'password' : [null, Validators.required],
-      'username' : [null, Validators.compose([Validators.required, Validators.minLength(2), Validators.maxLength(500)])],
+      'name' : [null, Validators.required],
+      'budget' : [null, Validators.required],
       'validate' : ''
     });
   }
 
-  login(post) {
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ListFormPage');
+  }
+
+  createList(post) {
     let loading = this.loadingCtrl.create({
-      content: 'Logging in...'
+      content: 'Creating your list...'
     });
     loading.present();
 
     setTimeout(() => {
       loading.dismiss();
     }, 5000);
-    this.shoppingListService.authenticate(post.username, post.password)
+    this.shoppingListService.createShoppingList(post.name, post.budget)
       .subscribe(
-        token => {
+        list => {
           if(loading !== null){
             loading.dismiss();
           }
-          localStorage.setItem('token', token.token);
+
           this.navCtrl.setRoot(ListPage,{
 
           });
         },
         error => {
-          this.logginError = true;
+          this.formError = true;
           setTimeout(() => {
-            this.logginError = false;
+            this.formError = false;
           }, 4000);
           if(loading !== null){
             loading.dismiss();
@@ -64,4 +69,5 @@ export class LoginPage {
         }
       )
   }
+
 }

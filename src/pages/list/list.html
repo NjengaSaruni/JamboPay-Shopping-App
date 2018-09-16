@@ -8,9 +8,67 @@
 </ion-header>
 
 <ion-content>
-  <ion-list>
-    <div ion-item *ngFor="let list of shoppingLists" (click)="itemTapped($event, item)">
-      <p class="list-name">{{list.name}}</p>
-    </div>
-  </ion-list>
+  <ion-row class="contain">
+    <ion-col col-12>
+      <button ion-button class="primary-button button new-list" (click)="openListForm()">
+        <ion-icon name="add"></ion-icon>
+        <span>Create new shopping list</span>
+      </button>
+      <button ion-button class="primary-button button new-list" (click)="addItem()">
+      <ion-icon name="add"></ion-icon>
+      <span>Add new shopping item</span>
+    </button>
+
+    </ion-col>
+    <ion-col col-4 *ngFor="let list of shoppingLists" >
+      <div class="shopping-list">
+        <p class="list-name">{{list.name}}</p>
+        <div class="items">
+          <ul>
+            <li *ngFor="let item of list.items" class="item-name">
+              <ion-row>
+                <ion-col col-7>
+                  <p>{{ item.item.name }}
+                </ion-col>
+                <ion-col col-3>
+                  <p>{{ item.price }} KES</p>
+                </ion-col>
+                <ion-col col-1>
+                  <ion-checkbox [(ngModel)]="item.bought" (click)="updateBought(list, item)"></ion-checkbox>
+                </ion-col>
+                <ion-col col-1>
+                  <ion-icon ios="ios-more" md="md-more"></ion-icon>
+                </ion-col>
+              </ion-row>
+            </li>
+            <li class="item-name">
+              <ion-row>
+                <ion-col col-7>
+                  <p class="total">Total</p>
+                </ion-col>
+                <ion-col col-2 class="total">
+                 <p> {{ list.total }} KES</p>
+                </ion-col>
+              </ion-row>
+            </li>
+          </ul>
+        </div>
+        <div class="separator"></div>
+        <ion-row>
+          <ion-col col-7 margin-left>
+            <p>Total for items bought</p>
+          </ion-col>
+          <ion-col col-2>
+            <p class="list-budget">{{ list.total_bought }} KES</p>
+          </ion-col>
+          <ion-col col-7 margin-left>
+            <p>Your budget</p>
+          </ion-col>
+          <ion-col col-2>
+            <p class="list-budget">{{ list.budget }} KES</p>
+          </ion-col>
+        </ion-row>
+      </div>
+    </ion-col>
+  </ion-row>
 </ion-content>
