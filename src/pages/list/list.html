@@ -14,15 +14,13 @@
         <ion-icon name="add"></ion-icon>
         <span>Create new shopping list</span>
       </button>
-      <button ion-button class="primary-button button new-list" (click)="addItem()">
-      <ion-icon name="add"></ion-icon>
-      <span>Add new shopping item</span>
-    </button>
-
     </ion-col>
-    <ion-col col-4 *ngFor="let list of shoppingLists" >
+    <div *ngFor="let list of shoppingLists" >
       <div class="shopping-list">
         <p class="list-name">{{list.name}}</p>
+        <p class="error" *ngIf="list.budget < list.limit">
+          You are running low on cash
+        </p>
         <div class="items">
           <ul>
             <li *ngFor="let item of list.items" class="item-name">
@@ -47,11 +45,14 @@
                   <p class="total">Total</p>
                 </ion-col>
                 <ion-col col-2 class="total">
-                 <p> {{ list.total }} KES</p>
+                  <p> {{ list.total }} KES</p>
                 </ion-col>
               </ion-row>
             </li>
           </ul>
+          <div>
+            <button ion-button class="primary-button button new-list new-add" (click)="addItem(list)">New Item</button>
+          </div>
         </div>
         <div class="separator"></div>
         <ion-row>
@@ -69,6 +70,6 @@
           </ion-col>
         </ion-row>
       </div>
-    </ion-col>
+    </div>
   </ion-row>
 </ion-content>

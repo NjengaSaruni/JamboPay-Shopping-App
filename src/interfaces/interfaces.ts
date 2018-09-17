@@ -10,8 +10,8 @@ export interface ShoppingList {
   updated_at: string;
   name: string;
   description: string;
-  budget: string;
-  limit: string;
+  budget: number;
+  limit: number;
   shopper: number;
 }
 export interface ItemsEntity {

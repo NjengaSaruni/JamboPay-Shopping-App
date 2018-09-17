@@ -5,8 +5,10 @@ import {LoadingController, MenuController, NavController, NavParams} from 'ionic
 
 import { ItemDetailsPage } from '../item-details/item-details';
 import {ShoppingListService} from "../../services/shopping-list.service";
-import {ItemsEntity, ShoppingList} from "../../interfaces/interfaces";
-import {ListFormPage} from "../list-form/list-form";
+import {Item, ItemsEntity, ShoppingList} from "../../interfaces/interfaces";
+import {ListFormPage} from "../list-form/list-form"
+import * as _ from "lodash";
+import {ItemFormPage} from "../item-form/item-form";
 
 @Component({
   selector: 'page-list',
@@ -14,11 +16,13 @@ import {ListFormPage} from "../list-form/list-form";
 })
 export class ListPage {
   shoppingLists: ShoppingList[] =  [];
+  items: Item[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               public shoppingListService: ShoppingListService, private nav: NavController,
               private menu: MenuController, private loadingCtrl: LoadingController) {
     this.getShoppingLists();
+    this.getAllItems();
   }
 
   itemTapped(event, item) {
@@ -32,11 +36,20 @@ export class ListPage {
       .subscribe(
         list => {
           console.log(list);
-          this.shoppingLists = list;
+          this.shoppingLists = _.reverse(list);
         },
         error => console.log(error)
       )
   }
+
+  getAllItems() {
+    this.shoppingListService.getAllItems()
+      .subscribe(
+        items => this.items = items,
+        error => console.log(error)
+      );
+  }
+
 
   ngAfterViewInit() {
     const token = localStorage.getItem('token');
@@ -47,6 +60,10 @@ export class ListPage {
 
   openListForm(){
     this.navCtrl.push(ListFormPage);
+  }
+
+  addItem(list){
+    this.navCtrl.push(ItemFormPage, {list: list});
   }
 
   openPage(page) {
@@ -65,9 +82,8 @@ export class ListPage {
       content: 'Updating shopping list...'
     });
     loading.present();
-    this.shoppingListService.patchItem(item)
+    this.shoppingListService.patchItem(item.bought, item.id)
       .subscribe(item => {
-          console.log(item);
           loading.dismiss();
           let total = 0;
           for(let item of list.items){

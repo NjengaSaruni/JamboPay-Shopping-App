@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import {IonicPage, LoadingController, NavController, NavParams} from 'ionic-angular';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ListPage} from "../list/list";
 import {ShoppingListService} from "../../services/shopping-list.service";
+import {ListPage} from "../list/list";
+import {ShoppingList} from "../../interfaces/interfaces";
 
 /**
- * Generated class for the ListFormPage page.
+ * Generated class for the ItemFormPage page.
  *
  * See https://ionicframework.com/docs/components/#navigation for more info on
  * Ionic pages and navigation.
@@ -13,47 +14,56 @@ import {ShoppingListService} from "../../services/shopping-list.service";
 
 @IonicPage()
 @Component({
-  selector: 'page-list-form',
-  templateUrl: 'list-form.html',
+  selector: 'page-item-form',
+  templateUrl: 'item-form.html',
 })
-export class ListFormPage {
+export class ItemFormPage {
   rForm: FormGroup;
   post:any;                     // A property for our submitted form
   name:string = '';
   budget:number = 0;
   formError: boolean;
+  list: ShoppingList;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,
               private fb: FormBuilder, private loadingCtrl: LoadingController,
               private shoppingListService: ShoppingListService) {
     this.rForm = fb.group({
       'name' : [null, Validators.required],
-      'budget' : [null, Validators.required],
-      'limit': [null],
-      'validate' : ''
+      'price' : [null, Validators.required],
     });
+
+    this.list = this.navParams.get('list');
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad ListFormPage');
+    console.log('ionViewDidLoad ItemFormPage');
   }
 
-  createList(post) {
+
+  addItem(item) {
     let loading = this.loadingCtrl.create({
-      content: 'Creating your list...'
+      content: 'Creating your item...'
     });
     loading.present();
 
     setTimeout(() => {
       loading.dismiss();
     }, 5000);
-    this.shoppingListService.createShoppingList(post.name, post.budget, post.limit)
+    this.shoppingListService.createNewItem(item.name, item.price)
       .subscribe(
-        list => {
-          if(loading !== null){
-            loading.dismiss();
-          }
-
+        item => {
+          this.shoppingListService.createNewShoppingItem(
+            item.id,
+            this.list.id
+          ).subscribe(
+            list => {
+              this.navCtrl.setRoot(ListPage);
+              if(loading !== null){
+                loading.dismiss();
+              }
+            }
+          );
           this.navCtrl.setRoot(ListPage,{
 
           });

@@ -15,6 +15,7 @@ import {ShoppingListService} from "../services/shopping-list.service";
 import {HttpClientModule} from "@angular/common/http";
 import {LoginPageModule} from "../pages/login/login.module";
 import {ListFormPageModule} from "../pages/list-form/list-form.module";
+import {ItemFormPageModule} from "../pages/item-form/item-form.module";
 
 
 
@@ -30,6 +31,7 @@ import {ListFormPageModule} from "../pages/list-form/list-form.module";
     HttpClientModule,
     LoginPageModule,
     ListFormPageModule,
+    ItemFormPageModule,
     IonicModule.forRoot(MyApp),
   ],
   bootstrap: [IonicApp],

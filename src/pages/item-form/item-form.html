@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>New shopping list</ion-title>
+    <ion-title>New item for {{list.name}}</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -15,7 +15,7 @@
 <ion-content padding>
   <ion-row>
     <ion-col col-12 class="center">
-      <form [formGroup]="rForm" (ngSubmit)="createList(rForm.value)" class="contain">
+      <form [formGroup]="rForm" (ngSubmit)="addItem(rForm.value)" class="contain">
         <div class="form-container">
           <div class="row columns">
             <ion-row class="center">
@@ -23,26 +23,20 @@
                 <p >There were some errors in your submission.</p>
               </ion-col>
               <ion-col col-12>
-                <label>Name of your list
+                <label>Name of the item
                   <input type="text" formControlName="name">
                 </label>
               </ion-col>
 
               <ion-col col-12>
-                <label>Your budget
-                  <input type="number" formControlName="budget">
+                <label> Price
+                  <input type="number" formControlName="price">
                 </label>
+
               </ion-col>
 
               <ion-col col-12>
-                <label>Warm me at
-                  <input type="number" formControlName="limit">
-                </label>
-              </ion-col>
-
-
-              <ion-col col-12>
-                <input type="submit" class="primary-button button expanded" value="Create List" [disabled]="!rForm.valid">
+                <input type="submit" class="primary-button button expanded" value="Create Item" [disabled]="!rForm.valid">
               </ion-col>
             </ion-row>
           </div>
